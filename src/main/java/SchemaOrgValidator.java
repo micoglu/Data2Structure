@@ -62,17 +62,18 @@ public class SchemaOrgValidator {
     return errors;
   }
 
+
   // Optional main method for testing
   public static void main(String[] args) throws IOException {
     // Example JSON-LD input
     String jsonldInput = "{"
         + "\"@context\": \"https://schema.org\","
         + "\"@type\": \"Person\","
-        + "\"name\": \"Mustafa\","
+        + "\"name\": \"Test\","
         + "\"jobTitle\": \"Software Engineer\","
         + "\"worksFor\": {"
         + "\"@type\": \"Organization\","
-        + "\"name\": \"adesso\""
+        + "\"name\": \"X\""
         + "}}";
 
     List<String> validationErrors = validateJsonLdAgainstSchemaOrg(jsonldInput);

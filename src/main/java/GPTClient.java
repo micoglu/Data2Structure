@@ -1,7 +1,9 @@
 import com.fasterxml.jackson.databind.JsonNode;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -16,10 +18,11 @@ import java.io.IOException;
 
 public class GPTClient {
 
-  private static final String API_KEY = "";
+  private static final String API_KEY = getApiKey("gpt.api.key");
   private static final String API_URL = "https://api.openai.com/v1/chat/completions";
-
   private static final String model = "gpt-4-0613";
+
+  private static final String instruction = "Please transform the code into the schema.org format";
 
   public static void main(String[] args) throws IOException {
     String prompt = "My name is Mustafa and I am a software engineer at adesso. Plase answer only with the JSON-LD format, do not add any ```json or ``` at the beginning or end of the answer.";
@@ -35,7 +38,7 @@ public class GPTClient {
     request.setHeader("OpenAI-Beta", "assistants=v1");
 
     Map<String, Object> requestBody = new HashMap<>();
-    requestBody.put("model", "gpt-4-0613");
+    requestBody.put("model", model);
     requestBody.put("messages", Arrays.asList(
         new HashMap<String, String>() {{
           put("role", "system");
@@ -43,7 +46,7 @@ public class GPTClient {
         }},
         new HashMap<String, String>() {{
           put("role", "user");
-          put("content", "Please transform the code to the schema.org format." + prompt);
+          put("content", instruction + prompt);
         }}
     ));
 
@@ -61,6 +64,22 @@ public class GPTClient {
                                          .findPath("content");
 
       return contentNode.isMissingNode() ? result : contentNode.asText();
+    }
+  }
+
+  private static String getApiKey(String key) {
+    Properties properties = new Properties();
+    try (InputStream input = Unstructured2Structured.class.getClassLoader().getResourceAsStream(
+        "application.properties")) {
+      if (input == null) {
+        System.out.println("Sorry, unable to find application.properties");
+        return null;
+      }
+      properties.load(input);
+      return properties.getProperty(key);
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      return null;
     }
   }
 }
