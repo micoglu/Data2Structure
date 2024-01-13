@@ -30,12 +30,45 @@
       <version>4.5.13</version>
     </dependency>
 
+    <dependency>
+      <groupId>net.sourceforge.htmlunit</groupId>
+      <artifactId>htmlunit</artifactId>
+      <version>2.50.0</version> <!-- Make sure to use the latest version -->
+    </dependency>
+
+
     <!-- JSON processing -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.11.3</version>
     </dependency>
+
+
+      <!-- Apache Jena ARQ for SPARQL queries -->
+      <!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
+      <dependency>
+        <groupId>org.apache.jena</groupId>
+        <artifactId>apache-jena-libs</artifactId>
+        <version>4.8.0</version>
+        <type>pom</type>
+      </dependency>
+
+    <!-- Apache Commons Codec library -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.15</version> <!-- Make sure you use the correct version -->
+    </dependency>
+      <!-- JSON-LD support for Apache Jena -->
+    <!-- https://mvnrepository.com/artifact/org.apache.jena/jena-arq -->
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-arq</artifactId>
+      <version>4.8.0</version>
+    </dependency>
+
+
 
     <dependency>
       <groupId>junit</groupId>

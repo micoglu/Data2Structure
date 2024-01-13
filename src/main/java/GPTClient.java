@@ -16,16 +16,18 @@ import java.io.IOException;
 
 public class GPTClient {
 
-  private static final String API_KEY = ""; //add your own API Key here
+  private static final String API_KEY = "";
   private static final String API_URL = "https://api.openai.com/v1/chat/completions";
 
+  private static final String model = "gpt-4-0613";
+
   public static void main(String[] args) throws IOException {
-    String prompt = "My name is Mustafa and I am a software engineer at adesso";
+    String prompt = "My name is Mustafa and I am a software engineer at adesso. Plase answer only with the JSON-LD format, do not add any ```json or ``` at the beginning or end of the answer.";
     String response = sendGPTRequest(prompt);
-    System.out.println("GPT Response: " + response);
+    System.out.println("GPT Response: \n" + response);
   }
 
-  private static String sendGPTRequest(String prompt) throws IOException {
+  public static String sendGPTRequest(String prompt) throws IOException {
     CloseableHttpClient httpClient = HttpClients.createDefault();
     HttpPost request = new HttpPost(API_URL);
     request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + API_KEY);
